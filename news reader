@@ -1,0 +1,22 @@
+import requests
+import json
+from win32com.client import Dispatch
+import time
+def speak(x):
+    speak = Dispatch("SAPI.SpVoice")
+    speak.Speak(x)
+#in order to use the program enter your api key in url
+url = ('https://newsapi.org/v2/everything?'
+       'q=Apple&'
+       'from=2021-07-28&'
+       'sortBy=popularity&'
+       'apiKey=API_______KEY')
+response = requests.get(url)
+
+z =response.text
+y = json.loads(z)
+head_lines = y["articles"]
+no_of_headlines = int(input("Enter number of headlines as input"))
+for i in range(no_of_headlines):
+    speak(head_lines[i]["title"])
+    time.sleep(1)
